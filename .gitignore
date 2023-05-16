@@ -2,6 +2,7 @@ node_modules/
 build/
 build_*/
 Release/
+cmake-build-debug/
 CMakeLists.txt.user
 
 deps/VLC*.app/
