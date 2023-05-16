@@ -25,7 +25,7 @@ file(GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     package.json
     )
 
-add_definitions(-DDEBUG=0)
+add_definitions(-DDEBUG=1)
 
 include_directories(${CMAKE_JS_INC} deps)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps/libvlc_wrapper)

@@ -31,15 +31,26 @@ void JsVlcDeinterlace::initJsApi()
 v8::UniquePersistent<v8::Object> JsVlcDeinterlace::create(JsVlcPlayer& player)
 {
     using namespace v8;
+	
+	printf("am intrat in deinterlace\n");
 
     Isolate* isolate = Isolate::GetCurrent();
+	printf("am intrat in deinterlace\n");
     Local<Context> context = isolate->GetCurrentContext();
+	printf("am intrat in deinterlace\n");
     HandleScope scope(isolate);
+	printf("am intrat in deinterlace\n");
 
     Local<Function> constructor =
         Local<Function>::New(isolate, _jsConstructor);
+	printf("am intrat in deinterlace\n");
+	
+	auto s = player.handle();
+	printf("am handle-ul\n");
 
     Local<Value> argv[] = { player.handle() };
+	
+	printf("se face return...\n");
 
     return {
         isolate,
@@ -55,6 +66,8 @@ void JsVlcDeinterlace::jsCreate(const v8::FunctionCallbackInfo<v8::Value>& args)
 
     Isolate* isolate = Isolate::GetCurrent();
     Local<Context> context = isolate->GetCurrentContext();
+	
+	printf("jsCreate la deinterlace\n");
 
     Local<Object> thisObject = args.Holder();
     if(args.IsConstructCall() && thisObject->InternalFieldCount() > 0) {

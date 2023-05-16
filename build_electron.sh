@@ -14,8 +14,8 @@ then
   install_name_tool -change @rpath/libvlc.dylib /Applications/VLC.app/Contents/MacOS/lib/libvlc.dylib build/Release/WebChimera.js.node
   echo "Done fixing"
   echo "Removing old wcjs-prebuilt"
-  rm ../../newapp/src/main/lib/wcjs-prebuilt/lib/WebChimera.js.node
+  rm ../../newapp/src/main/src/lib/wcjs-prebuilt/lib/WebChimera.js.darwin.arm64.node
   echo "Copying new wcjs-prebuilt"
-  cp build/Release/WebChimera.js.node ../../newapp/src/main/lib/wcjs-prebuilt/lib/WebChimera.js.node
+  cp build/Release/WebChimera.js.node ../../newapp/src/main/src/lib/wcjs-prebuilt/lib/WebChimera.js.darwin.arm64.node
 fi
 

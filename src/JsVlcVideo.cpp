@@ -8,7 +8,9 @@ v8::Persistent<v8::Function> JsVlcVideo::_jsConstructor;
 
 void JsVlcVideo::initJsApi()
 {
+	printf("hey\n");
     JsVlcDeinterlace::initJsApi();
+	printf("hey2\n");
 
     using namespace v8;
 
@@ -35,7 +37,9 @@ void JsVlcVideo::initJsApi()
     SET_RW_PROPERTY(instanceTemplate, "hue", &JsVlcVideo::hue, &JsVlcVideo::setHue);
     SET_RW_PROPERTY(instanceTemplate, "saturation", &JsVlcVideo::saturation, &JsVlcVideo::setSaturation);
     SET_RW_PROPERTY(instanceTemplate, "gamma", &JsVlcVideo::gamma, &JsVlcVideo::setGamma);
-	SET_RW_PROPERTY(instanceTemplate, "scale", &JsVlcVideo::scale, &JsVlcVideo::setScale);
+	//SET_RW_PROPERTY(instanceTemplate, "scale", &JsVlcVideo::scale, &JsVlcVideo::setScale);
+	
+	printf("jsvlcvideo constructed\n");
 
     Local<Function> constructor = constructorTemplate->GetFunction(context).ToLocalChecked();
     _jsConstructor.Reset(isolate, constructor);
@@ -50,8 +54,12 @@ v8::UniquePersistent<v8::Object> JsVlcVideo::create(JsVlcPlayer& player)
 
     Local<Function> constructor =
         Local<Function>::New(isolate, _jsConstructor);
+	
+	printf("JsVlcVideo constructor\n");
 
     Local<Value> argv[] = { player.handle() };
+	
+	printf("handle\n");
 
     return {
         isolate,
@@ -62,18 +70,24 @@ v8::UniquePersistent<v8::Object> JsVlcVideo::create(JsVlcPlayer& player)
 void JsVlcVideo::jsCreate(const v8::FunctionCallbackInfo<v8::Value>& args)
 {
     using namespace v8;
+	printf("mama ei\n");
 
     Isolate* isolate = Isolate::GetCurrent();
     Local<Context> context = isolate->GetCurrentContext();
 
     Local<Object> thisObject = args.Holder();
     if(args.IsConstructCall() && thisObject->InternalFieldCount() > 0) {
+		printf("constructor call\n");
         JsVlcPlayer* jsPlayer =
-            ObjectWrap::Unwrap<JsVlcPlayer>(Handle<Object>::Cast(args[0]));
+            ObjectWrap::Unwrap<JsVlcPlayer>(Local<Object>::Cast(args[0]));
         if(jsPlayer) {
+			printf("asa, mergem mai departe...\n");
             JsVlcVideo* jsPlaylist = new JsVlcVideo(thisObject, jsPlayer);
+			printf("facem set-ul\n");
             args.GetReturnValue().Set(thisObject);
-        }
+        } else {
+			printf("o o\n");
+		}
     } else {
         Local<Function> constructor =
             Local<Function>::New(isolate, _jsConstructor);
@@ -88,7 +102,11 @@ JsVlcVideo::JsVlcVideo(v8::Local<v8::Object>& thisObject, JsVlcPlayer* jsPlayer)
 {
     Wrap(thisObject);
 
+	printf("facem deinterlace\n");
+	jsPlayer->handle();
+	printf("handle\n");
     _jsDeinterlace = JsVlcDeinterlace::create(*jsPlayer);
+	printf("blocat la deinterlace...\n");
 }
 
 unsigned JsVlcVideo::count()

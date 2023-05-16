@@ -417,7 +417,9 @@ JsVlcPlayer::JsVlcPlayer(
 			}
 
             _player.register_callback(this);
+			printf("registered callbacks\n");
             VlcVideoOutput::open(&_player.basic_player());
+			printf("opened\n");
         } else {
             if(DEBUG) {
 				printf("could not open...\n");
@@ -431,10 +433,17 @@ JsVlcPlayer::JsVlcPlayer(
     }
 
     _jsInput = JsVlcInput::create(*this);
+	printf("_jsInput\n");
     _jsAudio = JsVlcAudio::create(*this);
+	printf("_jsAudio\n");
     _jsVideo = JsVlcVideo::create(*this);
+	printf("_jsVideo\n");
     _jsSubtitles = JsVlcSubtitles::create(*this);
+	printf("_jsSubs\n");
     _jsPlaylist = JsVlcPlaylist::create(*this);
+	printf("_jsPlaylist\n");
+	
+	printf("done loading\n");
 }
 
 void JsVlcPlayer::initLibvlc(const v8::Local<v8::Array>& vlcOpts)
