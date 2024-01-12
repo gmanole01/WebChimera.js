@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+.DS_Store
+
+node_modules/
+build/
+build_*/
+Release/
+cmake-build-debug/
+CMakeLists.txt.user
